@@ -1,0 +1,10 @@
+<h1><%= @article.title %></h1>
+
+<p><%= @article.body %></p>
+
+<ul>
+  <li><%= link_to "Edit", edit_article_path(@article) %></li>
+  <li><%= link_to "New", new_article_path %></li>
+  <li><%= link_to "Main", articles_path %></li> 
+  
+</ul>
