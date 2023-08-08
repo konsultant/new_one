@@ -1,0 +1,15 @@
+<%= form_with model: note do |form| %>
+  <div>
+    <%= form.label :title %><br>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :body %><br>
+    <%= form.text_area :body, cols: 60, rows: 15 %><br>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

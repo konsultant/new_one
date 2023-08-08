@@ -1,0 +1,19 @@
+<div class="container">
+
+<h1><%= @project.short_title %></h1>
+
+<p><%= @project.title %></p>
+<p>Бюджет проекта:<%= @project.projects_budget %></p>
+<p>Время реализации проекта:<%= @project.implementation_period %></p>
+<p>Валюта:<%= @project.currency_budget %></p>
+<p>Тэги: <%= @project.tags_tecnologies %></p>
+<p>Проект разместил: <%= @project.author %></p>
+
+<ul>
+  <li><%= link_to "Edit", edit_project_path(@project) %></li>
+  <li><%= link_to "New", new_project_path %></li>
+  <li><%= link_to "Main", articles_path %></li>
+
+</ul>
+</div>
+

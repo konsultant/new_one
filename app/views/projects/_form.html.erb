@@ -1,0 +1,44 @@
+<%= form_with model: project do |form| %>
+  <div>
+    <%= form.label :short_title %><br>
+    <%= form.text_field :short_title %>
+    <% project.errors.full_messages_for(:short_title).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :title %><br>
+    <%= form.text_area :title, cols: 80, rows: 15 %><br>
+    <% project.errors.full_messages_for(:title).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+   <div>
+    <%= form.label :implementation_period, "Period in month" %><br>
+    <%= form.text_area :implementation_period, cols: 15, rows: 1 %><br>
+    <% project.errors.full_messages_for(:implementation_period).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+ <div>
+    <%= form.label :projects_budget %><br>
+    <%= form.text_area :projects_budget, cols: 15, rows: 1 %><br>
+    <% project.errors.full_messages_for(:projects_budget).each do |message| %>
+      <div><%= message %></div>
+  <% end %>
+  </div>
+  <div>
+    <%= form.label :tags_tecnologies %><br>
+    <%= form.text_area :tags_tecnologies, cols: 30, rows: 5 %><br>
+    <% project.errors.full_messages_for(:tags_tecnologies).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

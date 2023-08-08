@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  short_title: MyString
+  title: MyString
+  author: MyString
+  projects_budget: 
+  tags_tecnologies: MyString
+  implementation_period: 2022-12-22
+  currency_budget: 
+  project_status: 
+  author_id: 
+
+two:
+  short_title: MyString
+  title: MyString
+  author: MyString
+  projects_budget: 
+  tags_tecnologies: MyString
+  implementation_period: 2022-12-22
+  currency_budget: 
+  project_status: 
+  author_id: 

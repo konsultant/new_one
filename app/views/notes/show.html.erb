@@ -1,0 +1,14 @@
+<div class="container">
+<h1>Notes#show</h1>
+
+<h1><%= @note.title %></h1>
+<p><%= @note.body %></p>
+</div>
+
+<ul>
+  <li><%= link_to "Edit", edit_note_path(@note) %></li>
+  <li><%= link_to "New", new_note_path %></li>
+  <li><%= link_to "Main", article_path %></li>
+
+</ul>
+

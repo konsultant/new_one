@@ -1,0 +1,15 @@
+current directory: /var/www/codeskill.cc/blog/vendor/cache/ruby/3.0.0/gems/bootsnap-1.12.0/ext/bootsnap
+/home/deploy/.rvm/rubies/ruby-3.0.0/bin/ruby -I /home/deploy/.rvm/rubies/ruby-3.0.0/lib/ruby/3.0.0 -r ./siteconf20220803-1367-yns042.rb extconf.rb
+creating Makefile
+
+current directory: /var/www/codeskill.cc/blog/vendor/cache/ruby/3.0.0/gems/bootsnap-1.12.0/ext/bootsnap
+make "DESTDIR=" clean
+
+current directory: /var/www/codeskill.cc/blog/vendor/cache/ruby/3.0.0/gems/bootsnap-1.12.0/ext/bootsnap
+make "DESTDIR="
+compiling bootsnap.c
+linking shared-object bootsnap/bootsnap.so
+
+current directory: /var/www/codeskill.cc/blog/vendor/cache/ruby/3.0.0/gems/bootsnap-1.12.0/ext/bootsnap
+make "DESTDIR=" install
+/usr/bin/install -m 0755 bootsnap.so ./.gem.20220803-1367-20fctw/bootsnap

@@ -1,0 +1,28 @@
+// Place all the styles related to the Articles controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+//@import "bootstrap";
+
+
+.col {
+  width: 25%;
+  padding: 10px;
+}
+
+.card_body {
+  margin: 10px;
+}
+
+.card-project {
+ border: 1px solid teal;
+ display: inline-block; 
+} 
+
+.about img {
+ display: block;
+}
+
+h5.card-title {
+  font-weight: bold;
+}

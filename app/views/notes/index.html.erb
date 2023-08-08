@@ -1,0 +1,12 @@
+<div class="container">
+<h1>Заметки</h1> 
+<ul> <% @notes.each do |note| %> 
+<li> <a href="/notes/<%= note.id %>"> 
+<%= link_to note.title, note %> 
+<div> <%= note.body %> </div> </a> 
+</li> 
+<div><li><%= link_to "Edit", edit_note_path(note.id) %></li></div>
+
+<% end %>
+</ul>
+</div>

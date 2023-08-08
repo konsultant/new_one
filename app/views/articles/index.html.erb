@@ -1,51 +1,129 @@
+<div class="container">
+  
 <h1>Здесь можно найти проекты и вакансии</h1>
-
-
-<h2>Проекты</h2>
-<%= form_with do |form| %>
-<!--
-Email <input type="email" name="address" id="address" /> <br><br>
-Password <input type="password" name="password" id="password" />
--->
-
-<ul>
-  <% @articles.each do |article| %>
-    <li>
-      <%= article.title %>
-    </li>
+<h2>Проект находится в разработке </h2> 
+<%= defined? @current_user.id %>
+  <strong> <%=  %> i am a user - <%= current_user.email %>.</strong>
+<div>
+  <div>
+  <a href="/projects"><h2>Проекты</h2></a>
+  <a href="/projects/new" class="btn btn-primary my-2"> Создать </a>
+  </div>
+  <div>
+  <% @projects.each do |project| %>
+    <div class = "project nav">
+      <a href="/projects/<%= project.id %>">
+         <%= link_to project.short_title, project %>
+         <div> <%= project.title %> </div>
+      </a>
+    </div>
   <% end %>
-</ul>
+  </div>
+</div>
+<hr>
+<div>
+  <div>
+  <a href="/vacancies"><h2>Вакансии</h2></a>
+  <a href="/vacancies/new" class="btn btn-primary my-2"> Создать </a>
+ </div>
+  <% @vacancies.each do |vacancy| %>
+    <div>
+      <a href="/vacancy/<%= vacancy.id %>">
+         <%= link_to vacancy.short_name, vacancy %>
+         <div> <%= vacancy.body %> </div>
+         <div> <p> <%= vacancy.user.email %> </p> </div>
+      </a>
+    </div>
+  <% end %>
+</div>
 
+<hr>
+<div>
+  <div>
+    <a href="notes"><h2>Заметки </h2></a>
+    <a href="notes/new" class="btn btn-primary my-2"> Создать </a>
+ </div>
+  <% @notes.each do |note| %>
+    <div>
+      <a href="/notes/<%= note.id %>">
+         <%= link_to note.title, note %>
+         <div> <%= note.body %> </div>
+      </a>
+    </div>
+  <% end %>
+</div>
+<hr>
+
+  <h2>Записи </h2>
 <ul>
   <% @articles.each do |article| %>
     <li>
       <a href="/articles/<%= article.id %>">
          <%= link_to article.title, article %>
+         <div> <%= article.body %> </div>
       </a>
     </li>
   <% end %>
 </ul>
 
-<h2>Вакансии</h2>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+ <% @articles.each do |article| %>  
+  <div class="col">
+    <div class="card-project">
+      <img src="..." class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title"> <%= article.title %> </h5>
+        <p class="card-text"> <%= article.body %> This content is a little bit longer.</p>
+      </div>
+    </div>
+ </div>
+ <% end %>
 
-<% end %>
+  <hr>
+  <div>
+    <div>
+      <a href="/tags"><h2>Теги</h2></a>
+      <a href="/tags/new" class="btn btn-primary my-2"> Создать </a>
+    </div>
+    <% @tags.each do |tag| %>
+      <div>
+        <a href="/tag/<%= tag.id %>">
+          <%= link_to tag.title, tag %>
+          <div> <%= tag.title %> </div>
+          <div> <p> <%= %> </p> </div>
+        </a>
+      </div>
+    <% end %>
+  </div>
+<hr>
+<ul>
+  <% @users.each do |user|%>     
+    <li>
+   <strong> <%= user.email[0..3] %> </strong>
+    </li> 
+  <% end %>
+</ul>
+<hr>
 
 
 
-<!-- inside app/views/welcome/index.html.erb -->  
 <div class="collapse" id="navbarToggleExternalContent">
   <div class="bg-dark p-4">
     <h5 class="text-white h4">Collapsed content</h5>
     <span class="text-muted">Toggleable via the navbar brand.</span>
   </div>
 </div>
+
 <nav class="navbar navbar-dark bg-dark">
   <div class="container-fluid">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+
       <span class="navbar-toggler-icon"></span>
     </button>
   </div>
 </nav>
+
+
 
 <main>
   <section class="py-5 text-center container">
@@ -61,3 +139,22 @@ Password <input type="password" name="password" id="password" />
     </div>
   </section>
 </main>
+
+</div>
+<form>
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-descr$
+    <div id="emailHelp" class="form-text">We'll never share your email with any$
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1">
+  </div>
+  <div class="mb-3 form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
