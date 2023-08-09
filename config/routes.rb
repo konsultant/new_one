@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
- 
+
  # get 'vacancy/new'
  # get 'vacancy/create'
  # get 'vacancy/update'
@@ -43,7 +43,10 @@ Rails.application.routes.draw do
   get "/projects", to: "projects#index"
   get "/notes", to: "notes#index"
   get "/vacancies", to: "vacancies#index"
- 
+  get "/profiles", to: "profiles#index"
+  get "/customer", to: "customer#index"
+  get "/executor", to: "executors#index"
+
   resources :articles
   resources :projects
   resources :notes

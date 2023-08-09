@@ -3,7 +3,14 @@
 <h1>Здесь можно найти проекты и вакансии</h1>
 <h2>Проект находится в разработке </h2> 
 <%= defined? @current_user.id %>
-  <strong> <%=  %> i am a user - <%= current_user.email %>.</strong>
+  <strong> <%=  %> i am a user - <%= if current_user.role = "customer"
+                                         link_to current_user.email, customer_path
+                                       elsif current_user.role = "executor"
+                                         link_to current_user.email, executor_path
+                                         else
+                                         link_to current_user.email, profiles_path
+                                         end
+  %>.</strong>
 <div>
   <div>
   <a href="/projects"><h2>Проекты</h2></a>
