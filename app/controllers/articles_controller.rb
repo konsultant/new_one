@@ -6,7 +6,7 @@ before_action :authenticate_user!, except: %i[show index]
     @users = User.all
     #byebug
     @articles = Article.all  
-    @projects = Project.all
+    @projects = Project.includes(:user)
     @notes = Note.all
     @vacancies = Vacancy.includes(:user)
     @tags = Tag.all
@@ -50,7 +50,6 @@ before_action :authenticate_user!, except: %i[show index]
       params.require(:article).permit(:title, :body)
     end
 end
-
 
 
 # USer.wherdse().we

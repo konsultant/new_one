@@ -1,0 +1,23 @@
+<div class="container">
+<%= form_with model: response do |form| %>
+  <div>
+    <%= form.label :text %><br>
+    <%= form.text_field :text, cols: 60, rows: 15 %>
+    <% article.errors.full_messages_for(:title).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :price %><br>
+    <%= form.text :price, cols: 60, rows: 15 %><br>
+    <% article.errors.full_messages_for(:body).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+</div>

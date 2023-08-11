@@ -5,5 +5,15 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :vacancies
+  has_many :responses
+  has_many :notes
+  has_many :projects
+
+  scope :executors, -> { where(role: :executor) }
+
+  enum role: {
+    customer: :customer,
+    executor: :executor
+  }
 
 end

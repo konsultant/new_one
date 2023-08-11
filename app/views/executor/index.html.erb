@@ -1,2 +1,53 @@
-<h1>Личный кабинет исполнителя</h1>
-<p>Find me in app/views/executors/index.html.erb</p>
+<div class="container">
+  <h1>Личный кабинет исполнителя</h1>
+  <%= current_user.email %>
+  </ul>
+  <h2>Проекты</h2>
+  <div>
+    <% @projects.each do |project|  %>
+      <div>
+        <a href="/project/<%= project.id %>">
+          <%= link_to project.short_title, project %>
+          <div> <%= project.id %> </div>
+          <div> <p> <%= project.user.email %> </p> </div>
+          <div> <%= project.project_status %> </div>
+          <div>Количество предложений: <%= project.response.count %> </div>
+
+          <%= if project.project_status == "draft"
+                button_to 'Опубликовать', {:controller => "projects", :action => "publish", :project_id => project.id } , :class => "btn btn-primary my-2", :method=>:post
+              end
+          %>
+          <%= if project.project_status == "published" || project.project_status == "chosing_performer"
+                button_to 'Снять с публикации', {:controller => "projects", :action => "withdraw_from_publication", :project_id => project.id } , :class => "btn btn-primary my-2", :method=>:post
+              end
+          %>
+      </div>
+    <% end %>
+  </div>
+
+  <!--POST /customer/projects/{project_id}/publish-->
+  <!--POST /projects/{project_id}/publish-->
+
+  <hr>
+  <h2>Вакансии</h2>
+  <div>
+    <% @vacancies.each do |vacancy|  %>
+      <div>
+        <a href="/vacancy/<%= vacancy.id %>">
+          <%= link_to vacancy.short_name, vacancy %>
+          <div> <%= vacancy.body %> </div>
+          <div> <p> <%= vacancy.user.email %> </p> </div>
+        </a>
+      </div>
+    <% end %>
+  </div>>
+  <hr>
+  <h2>Резюме</h2>
+  <hr>
+
+  <ul> <%  %>
+    <li>
+      <%= link_to "Главная", articles_path%>
+      <div> <%=  %> </div>
+    </li>
+</div>

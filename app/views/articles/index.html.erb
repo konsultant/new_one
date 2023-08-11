@@ -1,16 +1,28 @@
 <div class="container">
   
 <h1>Здесь можно найти проекты и вакансии</h1>
-<h2>Проект находится в разработке </h2> 
-<%= defined? @current_user.id %>
-  <strong> <%=  %> i am a user - <%= if current_user.role = "customer"
+<h2>Проект находится в разработке </h2>
+  <strong> i am a user - <%= if user_signed_in?
+                               if current_user.role == "customer"
                                          link_to current_user.email, customer_path
-                                       elsif current_user.role = "executor"
+                                       elsif current_user.role == "executor"
                                          link_to current_user.email, executor_path
                                          else
                                          link_to current_user.email, profiles_path
                                          end
+                             end
   %>.</strong>
+     <strong>
+       <%= if user_signed_in?
+             "#{current_user.role} #{current_user.id}"
+        end %>
+
+     </strong>
+  <%= button_to(
+        "Log Out",
+        destroy_user_session_path,
+        method: :delete
+      ) %>
 <div>
   <div>
   <a href="/projects"><h2>Проекты</h2></a>
@@ -18,12 +30,15 @@
   </div>
   <div>
   <% @projects.each do |project| %>
-    <div class = "project nav">
-      <a href="/projects/<%= project.id %>">
-         <%= link_to project.short_title, project %>
-         <div> <%= project.title %> </div>
-      </a>
-    </div>
+      <% if project.project_status != "draft" %>
+        <div class = "project nav">
+          <%= link_to project.short_title, project %>
+          <div> <%= project.title %> </div>
+          <div> <%= project.project_status %> </div>
+          <div> <p> <%= project.author %> </p> </div>
+            </div>
+      <% end %>
+
   <% end %>
   </div>
 </div>
@@ -106,7 +121,7 @@
 <ul>
   <% @users.each do |user|%>     
     <li>
-   <strong> <%= user.email[0..3] %> </strong>
+   <strong> <%= user.email %> - <%= user.role %>  </strong>
     </li> 
   <% end %>
 </ul>
