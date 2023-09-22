@@ -8,12 +8,51 @@
 <p>Валюта:<%= @project.currency_budget %></p>
 <p>Тэги: <%= @project.tags_tecnologies %></p>
 <p>Проект разместил: <%= @project.author %></p>
+  <p>Статус проекта: <%= @project.project_status %></p>
+  <p>Создатель проекта: <%= @user.email %></p>
+  <p>Текущая роль: <%= if current_user.present? then current_user.role end %></p>
 
-<ul>
+  <% if current_user.present? and current_user.role == "executor" %>
+  <div>
+  <p>Откликнуться на проект:</p>
+    <%= form_with model: Response.new do |form| %>
+      <div>
+        <%= form.label :Цена %><br>
+        <%= form.text_field :price %>
+      </div>
+
+      <div>
+        <%= form.label :Информация %><br>
+        <%= form.text_area :text, cols: 60, rows: 15 %><br>
+      </div>
+      <div>
+        <%= form.hidden_field :project_id, value: @project.id %><br>
+      </div>
+      <div>
+        <%= form.submit "Направить предложение" %>
+      </div>
+    <% end %>
+  </div>
+  <% end %>
+  <% if current_user.present? and current_user.role == "customer" %>
+    <div>
+        <% @responses.each do |response| %>
+            <div class = "project nav">
+              <div> <%= response.price %> </div>
+              <div> <%= response.text %> </div>
+              <div> <p> <%= button_to 'Утвердить исполнителя', {:controller => "projects", :action => "select", :project_id => @project.id } , :class => "btn btn-primary my-2", :method=>:post
+
+              %></p> </div>
+            </div>
+          <% end %>
+
+        <% end %>
+    </div>
+
+  <ul>
   <li><%= link_to "Edit", edit_project_path(@project) %></li>
   <li><%= link_to "New", new_project_path %></li>
   <li><%= link_to "Main", articles_path %></li>
-
 </ul>
 </div>
 

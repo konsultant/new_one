@@ -8,7 +8,7 @@
       <div>
         <a href="/project/<%= project.id %>">
           <%= link_to project.short_title, project %>
-          <div> <%= project.id %> </div>
+          <div>id: <%= project.id %> </div>
           <div> <p> <%= project.user.email %> </p> </div>
           <div> <%= project.project_status %> </div>
           <div>Количество предложений: <%= project.responses.count %> </div>
@@ -17,10 +17,11 @@
             button_to 'Опубликовать', {:controller => "projects", :action => "publish", :project_id => project.id } , :class => "btn btn-primary my-2", :method=>:post
             end
           %>
-          <%= if project.project_status == "published" || project.project_status == "chosing_performer"
+          <%= if project.project_status == "published" || project.project_status == "choosing_performer" || project.project_status == "performer_selected"
             button_to 'Снять с публикации', {:controller => "projects", :action => "withdraw_from_publication", :project_id => project.id } , :class => "btn btn-primary my-2", :method=>:post
           end
           %>
+          ------------------------------
       </div>
     <% end %>
   </div>

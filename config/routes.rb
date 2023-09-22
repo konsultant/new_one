@@ -60,10 +60,13 @@ Rails.application.routes.draw do
     post :select
     post :execute
   end
+
+
+
   resources :notes
   resources :tags
   resources :vacancies
-
+  resources :responses
    
 
 end

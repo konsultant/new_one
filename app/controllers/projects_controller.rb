@@ -5,6 +5,8 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
+    @user = User.find(params[:id])
+    @responses = Response.where("project_id = ?", @project.id)
   end
   def new
     @project = Project.new
@@ -30,6 +32,7 @@ class ProjectsController < ApplicationController
 
   def destroy
   end
+
   def publish
     @project = Project.find(params[:project_id])
     @project.may_publish?
@@ -39,9 +42,8 @@ class ProjectsController < ApplicationController
     redirect_to customer_path
   end
   def withdraw_from_publication
-
     @project = Project.find(params[:project_id])
-    @project.may_publish?
+    @project.may_withdraw_from_publication?
     @project.withdraw_from_publication
     @project.save
     #byebug
@@ -57,9 +59,9 @@ class ProjectsController < ApplicationController
   redirect_to customer_path
   end
 
-  def  select
+  def select
     @project = Project.find(params[:project_id])
-    @project.may_get_select?
+    @project.may_select?
     @project.select
     @project.save
     #byebug
@@ -69,6 +71,15 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:project_id])
     @project.may_execute?
     @project.execute
+    @project.save
+    #byebug
+    redirect_to customer_path
+  end
+
+  def submit_for_inspection
+    @project = Project.find(params[:project_id])
+    @project.may_submit_for_inspection?
+    @project.submit_for_inspection
     @project.save
     #byebug
     redirect_to customer_path

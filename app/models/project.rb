@@ -5,22 +5,22 @@ class Project < ApplicationRecord
 
   aasm column: :project_status do
     state :draft, initial: true
-    state :published, :reviews, :performer_selected, :performing, :completed, :archive
+    state :published, :choosing_performer, :performer_selected, :performing, :approval, :completed, :archive
 
     event :publish do
       transitions from: :draft, to: :published
     end
 
     event :withdraw_from_publication do
-      transitions from: [:published, :chosing_performer], to: :draft
+      transitions from: [:published, :choosing_performer], to: :draft
     end
 
     event :get_respond do
-      transitions from: :published, to: :chosing_performer
+      transitions from: :published, to: :choosing_performer
     end
 
     event :select do
-      transitions from: :chosing_performer, to: :performer_selected
+      transitions from: :choosing_performer, to: :performer_selected
     end
 
     event :execute do
@@ -29,6 +29,10 @@ class Project < ApplicationRecord
 
     event :complete do
       transitions from: :performing, to: :comleted
+    end
+
+    event :submit_for_inspection do
+      transitions from: :performer_selected, to: :approval
     end
 
 

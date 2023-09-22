@@ -9,11 +9,11 @@ class User < ApplicationRecord
   has_many :notes
   has_many :projects
 
-  scope :executors, -> { where(role: :executor) }
+  scope :executors, -> { where(character: :executor) }
 
-  enum role: {
-    customer: :customer,
-    executor: :executor
+  enum character: {
+    customer: 'customer',
+    executor: 'executor'
   }
 
 end
