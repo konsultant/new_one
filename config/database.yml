@@ -9,21 +9,24 @@
 default: &default
   adapter: postgresql
   url: postgresql://localhost/myapp_db_dev?pool=5
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  #pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
   encoding: utf8
 
-  host: <%= ENV['DB_HOST'] %>
-  database: <%= ENV['DB_NAME'] %>
-  username: <%= ENV['DB_USER'] %>
-  password: <%= ENV['DB_PASS'] %>
+  #host: <%= ENV['DB_HOST'] %>
+  #database: <%= ENV['DB_NAME'] %>
+  #username: <%= ENV['DB_USER'] %>
+  #password: <%= ENV['DB_PASS'] %>
+  #host: 127.0.0.1
+  #database: myapp_db_dev  
+  #username: app
 
 development:
   <<: *default
   #database: myapp_db_dev
-  #username: app
-  url: postgresql://localhost/myapp_db_dev?pool=5
-  password:
+  username: app
+  #url: postgresql://localhost/myapp_db_dev?pool=5
+  password: devdb
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
