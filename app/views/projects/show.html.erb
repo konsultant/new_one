@@ -40,9 +40,11 @@
             <div class = "project nav">
               <div> <%= response.price %> </div>
               <div> <%= response.text %> </div>
+              <div> <%if response.project.project_status == "chopsing_performer" %> </div>
               <div> <p> <%= button_to 'Утвердить исполнителя', {:controller => "projects", :action => "select", :project_id => @project.id } , :class => "btn btn-primary my-2", :method=>:post
 
               %></p> </div>
+                <% end %>
             </div>
           <% end %>
 

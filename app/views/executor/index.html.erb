@@ -2,17 +2,16 @@
   <h1>Личный кабинет исполнителя</h1>
   <%= current_user.email %>
   </ul>
-  <h2>Проекты</h2>
+  <h2>Вы откликнулись на проекты:</h2>
   <div>
     <% @projects.each do |project|  %>
       <div>
         <a href="/project/<%= project.id %>">
           <%= link_to project.short_title, project %>
           <div> <%= project.id %> </div>
-          <div> <p> <%= project.user.email %> </p> </div>
+          <div><p> <%= project.user.email %> </p></div>
           <div> <%= project.project_status %> </div>
-          <div>Количество предложений: <%= project.response.count %> </div>
-
+          <div>Количество предложений: <%= project.responses.count %> </div>
           <%= if project.project_status == "draft"
                 button_to 'Опубликовать', {:controller => "projects", :action => "publish", :project_id => project.id } , :class => "btn btn-primary my-2", :method=>:post
               end
@@ -24,7 +23,34 @@
       </div>
     <% end %>
   </div>
-
+  <h2>Вы утверждены как исполнитель:</h2>
+  <div>
+    <% #byebug %>
+    <% if @confirmed_projects.present? %>
+        <%  @confirmed_projects.each do |project|  %>
+      <div>
+        <a href="/project/<%= project.id %>">
+          <%= link_to project.short_title, project %>
+          <div> <%= project.id %> </div>
+          <div><p> <%= project.user.email %> </p></div>
+          <div> <%= project.project_status %> </div>
+          <div>Количество предложений: <%= project.responses.count %> </div>
+          <%= if project.project_status == "performer_selected"
+                button_to 'Приступить к выполнению', {:controller => "projects", :action => "execute", :project_id => project.id } , :class => "btn btn-primary my-2", :method=>:post
+              end
+          %>
+          <%= if project.project_status == "performing"
+                button_to 'Сдать на проверку', {:controller => "projects", :action => "submit_for_inspection", :project_id => project.id } , :class => "btn btn-primary my-2", :method=>:post
+              end
+          %>
+          <%= if project.project_status == "published" || project.project_status == "chosing_performer"
+                button_to 'Снять с публикации', {:controller => "projects", :action => "withdraw_from_publication", :project_id => project.id } , :class => "btn btn-primary my-2", :method=>:post
+              end
+          %>
+      </div>
+    <% end %>
+    <% end %>
+  </div>
   <!--POST /customer/projects/{project_id}/publish-->
   <!--POST /projects/{project_id}/publish-->
 
@@ -50,4 +76,3 @@
       <%= link_to "Главная", articles_path%>
       <div> <%=  %> </div>
     </li>
-</div>

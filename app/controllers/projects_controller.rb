@@ -67,10 +67,19 @@ class ProjectsController < ApplicationController
     #byebug
     redirect_to customer_path
   end
+  def complete
+    @project = Project.find(params[:project_id])
+    @project.may_complete?
+    @project.complete
+    @project.save
+    #byebug
+    redirect_to customer_path
+  end
   def execute
     @project = Project.find(params[:project_id])
     @project.may_execute?
     @project.execute
+    #@project.response_id =
     @project.save
     #byebug
     redirect_to customer_path

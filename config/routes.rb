@@ -59,6 +59,8 @@ Rails.application.routes.draw do
     post :get_respond
     post :select
     post :execute
+    post :submit_for_inspection
+    post :complete
   end
 
 

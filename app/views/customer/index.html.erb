@@ -25,6 +25,50 @@
       </div>
     <% end %>
   </div>
+  <h2>Проекты на утверждении</h2>
+  <div>
+
+    <% @projects_approval.each do |project|  %>
+      <div>
+        <a href="/project/<%= project.id %>">
+          <%= link_to project.short_title, project %>
+          <div>id: <%= project.id %> </div>
+          <div> <p> <%= project.user.email %> </p> </div>
+          <div> <%= project.project_status %> </div>
+          <div>Количество предложений: <%= project.responses.count %> </div>
+
+          <%= if project.project_status == "approval"
+                button_to 'Утвердить', {:controller => "projects", :action => "complete", :project_id => project.id } , :class => "btn btn-primary my-2", :method=>:post
+              end
+          %>
+          <%= if project.project_status == "approval"
+                button_to 'Вернуть на доработку', {:controller => "projects", :action => "execute", :project_id => project.id } , :class => "btn btn-primary my-2", :method=>:post
+              end
+          %>
+          <%= if project.project_status == "published" || project.project_status == "choosing_performer" || project.project_status == "performer_selected"
+                button_to 'Снять с публикации', {:controller => "projects", :action => "withdraw_from_publication", :project_id => project.id } , :class => "btn btn-primary my-2", :method=>:post
+              end
+          %>
+          ------------------------------
+      </div>
+    <% end %>
+  </div>
+  <h2>Выполненные проекты</h2>
+  <div>
+    <% if @confirmed_projects.present? %>
+    <% @projects_сomleted.each do |project|  %>
+      <div>
+        <a href="/project/<%= project.id %>">
+          <%= link_to project.short_title, project %>
+          <div>id: <%= project.id %> </div>
+          <div> <p> <%= project.user.email %> </p> </div>
+          <div> <%= project.project_status %> </div>
+          <div>Количество предложений: <%= project.responses.count %> </div>
+          ------------------------------
+      </div>
+    <% end %>
+    <% end %>
+  </div>
 
 <!--POST /customer/projects/{project_id}/publish-->
 <!--POST /projects/{project_id}/publish-->
