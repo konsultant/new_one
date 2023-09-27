@@ -55,8 +55,8 @@
   </div>
   <h2>Выполненные проекты</h2>
   <div>
-    <% if @confirmed_projects.present? %>
-    <% @projects_сomleted.each do |project|  %>
+    <% if @projects_сompleted.present? %>
+    <% @projects_сompleted.each do |project|  %>
       <div>
         <a href="/project/<%= project.id %>">
           <%= link_to project.short_title, project %>
@@ -85,7 +85,7 @@
         </a>
       </div>
     <% end %>
-  </div>>
+  </div>
   <hr>
   <h2>Резюме</h2>
   <hr>

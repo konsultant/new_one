@@ -51,6 +51,23 @@
     <% end %>
     <% end %>
   </div>
+  <h2>Реализованные проекты</h2>
+  <div>
+    <% if @projects_сompleted.present? %>
+      <% @projects_сompleted.each do |project|  %>
+        <div>
+          <a href="/project/<%= project.id %>">
+            <%= link_to project.short_title, project %>
+            <div>id: <%= project.id %> </div>
+            <div> <p> <%= project.user.email %> </p> </div>
+            <div> <%= project.project_status %> </div>
+            <div> <%= project.response_id %> </div>
+            <div>Количество предложений: <%= project.responses.count %> </div>
+            ------------------------------
+        </div>
+      <% end %>
+    <% end %>
+  </div>
   <!--POST /customer/projects/{project_id}/publish-->
   <!--POST /projects/{project_id}/publish-->
 
@@ -66,7 +83,7 @@
         </a>
       </div>
     <% end %>
-  </div>>
+  </div>
   <hr>
   <h2>Резюме</h2>
   <hr>

@@ -6,7 +6,9 @@ class ProjectsController < ApplicationController
   def show
     @project = Project.find(params[:id])
     @user = User.find(params[:id])
-    @responses = Response.where("project_id = ?", @project.id)
+    if Response.where("project_id = ?", @project.id).present?
+      @responses = Response.where("project_id = ?", @project.id)
+    end
   end
   def new
     @project = Project.new
@@ -45,6 +47,7 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:project_id])
     @project.may_withdraw_from_publication?
     @project.withdraw_from_publication
+    Response.where(project_id: params[:project_id]).destroy_all
     @project.save
     #byebug
     redirect_to customer_path
@@ -56,17 +59,19 @@ class ProjectsController < ApplicationController
   @project.get_respond
   @project.save
   #byebug
-  redirect_to customer_path
+  redirect_to executor_path
   end
 
   def select
     @project = Project.find(params[:project_id])
     @project.may_select?
+    @project.response_id = params[:response_id]
     @project.select
     @project.save
     #byebug
     redirect_to customer_path
   end
+
   def complete
     @project = Project.find(params[:project_id])
     @project.may_complete?
@@ -75,6 +80,7 @@ class ProjectsController < ApplicationController
     #byebug
     redirect_to customer_path
   end
+
   def execute
     @project = Project.find(params[:project_id])
     @project.may_execute?
@@ -82,7 +88,7 @@ class ProjectsController < ApplicationController
     #@project.response_id =
     @project.save
     #byebug
-    redirect_to customer_path
+    redirect_to executor_path
   end
 
   def submit_for_inspection
@@ -91,7 +97,7 @@ class ProjectsController < ApplicationController
     @project.submit_for_inspection
     @project.save
     #byebug
-    redirect_to customer_path
+    redirect_to executor_path
   end
 
   def update

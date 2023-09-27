@@ -17,7 +17,10 @@ class ResponsesController < ApplicationController
     @project = Project.find(params[:response][:project_id])
     @response = Response.new(response_params)
     @response.user_id = current_user.id
-    @project.get_respond!
+    if @project.project_status != "choosing_performer"
+      @project.get_respond!
+    end
+
     success = @response.save
     #byebug
     if success
