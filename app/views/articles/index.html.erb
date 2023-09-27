@@ -1,28 +1,31 @@
-<div class="container">
-  
-<h1>Здесь можно найти проекты и вакансии</h1>
-<h2>Проект находится в разработке </h2>
-  <strong> i am a user - <%= if user_signed_in?
-                               if current_user.role == "customer"
-                                         link_to current_user.email, customer_path
-                                       elsif current_user.role == "executor"
-                                         link_to current_user.email, executor_path
-                                         else
-                                         link_to current_user.email, profiles_path
-                                         end
-                             end
-  %>.</strong>
-     <strong>
-       <%= if user_signed_in?
-             "#{current_user.role} #{current_user.id}"
-        end %>
+<p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link">
+  <%= if user_signed_in?
+                  if current_user.role == "customer"
+                    link_to current_user.email, customer_path
+                  elsif current_user.role == "executor"
+                    link_to current_user.email, executor_path
+                  else
+                    link_to current_user.email, profiles_path
+                  end
+                end
+  %> <button type="button" class="btn btn-default navbar-btn">Sign in</button>
+  <%= if user_signed_in?
+        "#{current_user.role} #{current_user.id}"
+      end %>
 
-     </strong>
   <%= button_to(
         "Log Out",
         destroy_user_session_path,
-        method: :delete
+        method: :delete,
+        form_class: "btn btn-default navbar-btn"
       ) %>
+</a></p>
+<div class="container">
+<h1>Здесь можно найти проекты и вакансии</h1>
+<h2>Проект находится в разработке, но можно попробовать создать проект. </h2>
+
+
+
 <div>
   <div>
   <a href="/projects"><h2>Проекты</h2></a>
@@ -31,14 +34,13 @@
   <div>
   <% @projects.each do |project| %>
       <% if project.project_status != "draft" %>
-        <div class = "project nav">
+        <div class = "project card">
           <%= link_to project.short_title, project %>
           <div> <%= project.title %> </div>
           <div> <%= project.project_status %> </div>
           <div> <p> <%= project.author %> </p> </div>
-            </div>
+        </div>
       <% end %>
-
   <% end %>
   </div>
 </div>
@@ -49,7 +51,7 @@
   <a href="/vacancies/new" class="btn btn-primary my-2"> Создать </a>
  </div>
   <% @vacancies.each do |vacancy| %>
-    <div>
+    <div class = "project card">
       <a href="/vacancy/<%= vacancy.id %>">
          <%= link_to vacancy.short_name, vacancy %>
          <div> <%= vacancy.body %> </div>
@@ -62,11 +64,11 @@
 <hr>
 <div>
   <div>
-    <a href="notes"><h2>Заметки </h2></a>
+    <a href="/notes"><h2>Заметки </h2></a>
     <a href="notes/new" class="btn btn-primary my-2"> Создать </a>
  </div>
   <% @notes.each do |note| %>
-    <div>
+    <div class = "project card">
       <a href="/notes/<%= note.id %>">
          <%= link_to note.title, note %>
          <div> <%= note.body %> </div>
@@ -75,23 +77,20 @@
   <% end %>
 </div>
 <hr>
+  <a href="/articles"><h2>Записи </h2></a>
 
-  <h2>Записи </h2>
-<ul>
   <% @articles.each do |article| %>
-    <li>
+    <div class = "project card">
       <a href="/articles/<%= article.id %>">
          <%= link_to article.title, article %>
          <div> <%= article.body %> </div>
       </a>
-    </li>
   <% end %>
 </ul>
-
-<div class="row row-cols-1 row-cols-md-3 g-4">
+<div>
  <% @articles.each do |article| %>  
   <div class="col">
-    <div class="card-project">
+    <div class="project card">
       <img src="..." class="card-img-top" alt="...">
       <div class="card-body">
         <h5 class="card-title"> <%= article.title %> </h5>
@@ -118,6 +117,7 @@
     <% end %>
   </div>
 <hr>
+
 <ul>
   <% @users.each do |user|%>     
     <li>

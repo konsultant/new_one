@@ -1,15 +1,24 @@
 <div class="container">
 
 <h1>Проекты</h1>
-<p></p>
+
 <ul> <% @projects.each do |project| %>
-<li> <a href="/projects/<%= project.id %>">
-<%= link_to project.short_title, project %>
-<div> <%= project.title %> </div> </a>
-</li>
+    <div class="project">
+      <li> <a href="/projects/<%= project.id %>">
+      <%= link_to project.short_title, project %>
+      <div> <%= project.title %> </div> </a>
+      </li>
+    </div>
 <% end %>
 </ul>
 
+
+
+  <ul>
+
+    <li><%= link_to "New", new_project_path %></li>
+    <li><%= link_to "Main", articles_path %></li>
+  </ul>
 
 
 </div>

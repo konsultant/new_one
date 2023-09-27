@@ -3,7 +3,7 @@ class Project < ApplicationRecord
   belongs_to :user
   has_many :responses
   belongs_to :confirmed_response, class_name: "Response", foreign_key: "response_id", optional: true
-
+  #Перечень статусов при которых не выводится форма отклика
   Statuses_for_not_response = %i[performer_selected performing approval completed archive]
 
   scope :executors_statuses, -> { where(project_status: %i[performer_selected performing approval]) }

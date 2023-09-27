@@ -3,41 +3,41 @@
   <%= hidden_field_tag :user_id, project&.user&.id %>
   <% if user_signed_in? %>
     <% #byebug %>
-    <strong> i am a user - <%= current_user.email %>.</strong>
+    <br><strong> Привет, <%= current_user.email %>!</strong><br>
   <% end %>
-  <div>
-    <%= form.label :short_title %><br>
-    <%= form.text_field :short_title %>
+  <div class="input-group">
+    <%= form.label :short_title, "Краткое описание проекта" %><br>
+    <%= form.text_field :short_title, :class => "form-control", cols: 15, rows: 1 %>
     <% project.errors.full_messages_for(:short_title).each do |message| %>
       <div><%= message %></div>
     <% end %>
   </div>
 
   <div>
-    <%= form.label :title %><br>
-    <%= form.text_area :title, cols: 80, rows: 15 %><br>
+    <%= form.label :title, "Полное описание проекта" %><br>
+    <%= form.text_area :title, :class => "form-control", cols: 80, rows: 15 %><br>
     <% project.errors.full_messages_for(:title).each do |message| %>
       <div><%= message %></div>
     <% end %>
   </div>
    <div>
-    <%= form.label :implementation_period, "Period in month" %><br>
-    <%= form.text_area :implementation_period, cols: 15, rows: 1 %><br>
+    <%= form.label :implementation_period, "Срок реализации проекта" %><br>
+    <%= form.text_area :implementation_period, :class => "form-control", cols: 15, rows: 1 %><br>
     <% project.errors.full_messages_for(:implementation_period).each do |message| %>
       <div><%= message %></div>
     <% end %>
   </div>
 
  <div>
-    <%= form.label :projects_budget %><br>
-    <%= form.text_area :projects_budget, cols: 15, rows: 1 %><br>
+    <%= form.label :projects_budget, "Бюджет проекта" %><br>
+    <%= form.text_area :projects_budget, :class => "form-control", cols: 15, rows: 1 %><br>
     <% project.errors.full_messages_for(:projects_budget).each do |message| %>
       <div><%= message %></div>
   <% end %>
   </div>
   <div>
-    <%= form.label :tags_tecnologies %><br>
-    <%= form.text_area :tags_tecnologies, cols: 30, rows: 5 %><br>
+    <%= form.label :tags_tecnologies, "Тэги проекта" %><br>
+    <%= form.text_area :tags_tecnologies, :class => "form-control", cols: 30, rows: 5 %><br>
     <% project.errors.full_messages_for(:tags_tecnologies).each do |message| %>
       <div><%= message %></div>
     <% end %>
@@ -47,6 +47,6 @@
   <% end %>
 
   <div>
-    <%= form.submit %>
+    <%= form.submit "Создать", :class => "btn btn-primary my-1" %>
   </div>
 <% end %>

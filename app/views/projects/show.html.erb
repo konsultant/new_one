@@ -1,7 +1,6 @@
 <div class="container">
 
-<h1><%= @project.short_title %></h1>
-
+<h2><%= @project.short_title %></h2>
 <p><h3><%= @project.title %></h3></p>
 <p>Бюджет проекта: <%= @project.projects_budget %></p>
 <p>Время реализации проекта: <%= @project.implementation_period %></p>
@@ -9,7 +8,7 @@
 <p>Тэги: <%= @project.tags_tecnologies %></p>
 <p>Проект разместил: <%= @project.author %></p>
   <p>Статус проекта: <%= @project.project_status %></p>
-  <p>Создатель проекта: <%= @project.user.email %></p>
+  <p>Создатель проекта: <%= @project&.user&.email  %></p>
   <p>Текущая роль: <%= if current_user.present? then current_user.role end %></p>
 
   <% if current_user.present? and current_user.role == "executor" and @project.check_status %>
@@ -18,12 +17,12 @@
     <%= form_with model: Response.new do |form| %>
       <div>
         <%= form.label :Цена %><br>
-        <%= form.text_field :price %>
+        <%= form.text_field :price, :class => "form-control" %>
       </div>
 
       <div>
         <%= form.label :Информация %><br>
-        <%= form.text_area :text, cols: 60, rows: 15 %><br>
+        <%= form.text_area :text, :class => "form-control", cols: 60, rows: 15 %><br>
       </div>
       <div>
         <%= form.hidden_field :project_id, value: @project.id %><br>
@@ -37,7 +36,7 @@
   <% if current_user.present? and current_user.role == "customer" and @responses.present? and @project.project_status != "draft" %>
     <div>
         <% @responses.each do |response| %>
-            <div class = "project nav">
+            <div class = "project-nav">
               <div> <%= response.id %> </div>
               <div> <%= response.price %> </div>
               <div> <%= response.text %> </div>
@@ -50,14 +49,13 @@
             </div>
           <% end %>
         <% end %>
-    </div>
   <ul>
     <li><%= link_to "Edit", edit_project_path(@project) %></li>
     <li><%= link_to "New", new_project_path %></li>
     <li><%= link_to "Main", articles_path %></li>
   </ul>
-</div>
-</div>
+  </div>
+
 </div>
 
 
