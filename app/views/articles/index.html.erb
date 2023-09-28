@@ -1,30 +1,86 @@
-<p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link">
-  <%= if user_signed_in?
-                  if current_user.role == "customer"
-                    link_to current_user.email, customer_path
-                  elsif current_user.role == "executor"
-                    link_to current_user.email, executor_path
-                  else
-                    link_to current_user.email, profiles_path
-                  end
-                end
-  %> <button type="button" class="btn btn-default navbar-btn">Sign in</button>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">CodeSkill</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+      <form class="navbar-form navbar-left">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<a href="#">Signed in as
   <%= if user_signed_in?
         "#{current_user.role} #{current_user.id}"
-      end %>
+        if current_user.role == "customer"
+          link_to current_user.email, customer_path
+        elsif current_user.role == "executor"
+          link_to current_user.email, executor_path
+        else
+          link_to current_user.email, profiles_path
+        end
+      end
+  %>
+</a>
+</li>
 
+<% if !(user_signed_in?) %>
+  <li type="button" class="btn btn-default navbar-btn"> Sign in </li>
+<% else %>
   <%= button_to(
         "Log Out",
         destroy_user_session_path,
         method: :delete,
-        form_class: "btn btn-default navbar-btn"
+        :class => 'btn btn-default navbar-btn'
       ) %>
-</a></p>
+<% end %>
+
 <div class="container">
 <h1>Здесь можно найти проекты и вакансии</h1>
 <h2>Проект находится в разработке, но можно попробовать создать проект. </h2>
-
-
 
 <div>
   <div>
@@ -76,16 +132,21 @@
     </div>
   <% end %>
 </div>
+  <div>
+    <div>
 <hr>
   <a href="/articles"><h2>Записи </h2></a>
-
+  <a href="articles/new" class="btn btn-primary my-2"> Создать </a>
+    </div>
   <% @articles.each do |article| %>
     <div class = "project card">
       <a href="/articles/<%= article.id %>">
          <%= link_to article.title, article %>
          <div> <%= article.body %> </div>
       </a>
+    </div>
   <% end %>
+    </div>
 </ul>
 <div>
  <% @articles.each do |article| %>  

@@ -33,15 +33,17 @@
     <% end %>
   </div>
   <% end %>
+  <hr>
+  <h3>Отклики: </h3>
   <% if current_user.present? and current_user.role == "customer" and @responses.present? and @project.project_status != "draft" %>
     <div>
         <% @responses.each do |response| %>
             <div class = "project-nav">
-              <div> <%= response.id %> </div>
-              <div> <%= response.price %> </div>
+
               <div> <%= response.text %> </div>
-              <div> <%= response.user.email %> </div>
-              <div> <%if response.project.project_status == "choosing_performer" %> </div>
+              <div> Стоимость: <%= response.price %> </div>
+              <div> <h6> <div> <%= response.id %> </div> <%= response.user.email %> </h6></div>
+              <div> <% if response.project.project_status == "choosing_performer" %> </div>
                   <div> <p> <%= button_to 'Утвердить исполнителя', {:controller => "projects", :action => "select", :project_id => @project.id, :response_id => response.id } , :class => "btn btn-primary my-2", :method=>:post
 
                   %></p></div>
@@ -49,6 +51,7 @@
             </div>
           <% end %>
         <% end %>
+  <hr>
   <ul>
     <li><%= link_to "Edit", edit_project_path(@project) %></li>
     <li><%= link_to "New", new_project_path %></li>
