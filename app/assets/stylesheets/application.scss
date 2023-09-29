@@ -20,9 +20,7 @@
 *= require_self 
 */
 
-
-h1 {  
-   
+h1 {
 }  
 
 .card-project {
@@ -31,12 +29,12 @@ h1 {
 }
 
 .project  {
-  border: 1px solid grey;
+  border: 1px solid #dfdede;
   display: inline-block;
   width: 150px;
   height: 150px;
   padding: 5px;
-  margin: 10px;
+  margin: 10px 10px 10px 0px;
   overflow: hidden;
 }
 .project:hover {

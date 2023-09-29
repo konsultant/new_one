@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   devise_for :users do 
     get "/users/sing_out" => "device/sessions#destroy"
-
+    get "/users/sing_in" => "devise/registrations#create"
   end
  
   root "articles#index"

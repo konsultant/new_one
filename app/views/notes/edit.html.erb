@@ -1,4 +1,9 @@
 <div class="container"> 
-<h1>Edit Note </h1>
-<%= render "form", note: @note %>                                      
+<h1>Редактировать заметку</h1>
+<%= render "form", note: @note %>
+
+  <ul>
+    <li><%= link_to "New", new_note_path %></li>
+    <li><%= link_to "Main", articles_path %></li>
+  </ul>
 </div>
