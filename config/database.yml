@@ -19,7 +19,8 @@ default: &default
   #password: <%= ENV['DB_PASS'] %>
   #host: 127.0.0.1
   #database: myapp_db_dev  
-  #username: app
+  username: app
+  password: devdb
 
 development:
   <<: *default
