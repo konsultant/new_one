@@ -1,19 +1,65 @@
 <div class="container">
 
-<h1><%= @project.short_title %></h1>
-
-<p><%= @project.title %></p>
-<p>Бюджет проекта:<%= @project.projects_budget %></p>
-<p>Время реализации проекта:<%= @project.implementation_period %></p>
-<p>Валюта:<%= @project.currency_budget %></p>
+<h2><%= @project.short_title %></h2>
+<p><h3><%= @project.title %></h3></p>
+<p>Бюджет проекта: <%= @project.projects_budget %></p>
+<p>Время реализации проекта: <%= @project.implementation_period %></p>
+<p>Валюта: <%= @project.currency_budget %></p>
 <p>Тэги: <%= @project.tags_tecnologies %></p>
 <p>Проект разместил: <%= @project.author %></p>
+  <p>Статус проекта: <%= @project.project_status %></p>
+  <p>Создатель проекта: <%= @project&.user&.email  %></p>
+  <p>Текущая роль: <%= if current_user.present? then current_user.role end %></p>
 
-<ul>
-  <li><%= link_to "Edit", edit_project_path(@project) %></li>
-  <li><%= link_to "New", new_project_path %></li>
-  <li><%= link_to "Main", articles_path %></li>
+  <% if current_user.present? and current_user.role == "executor" and @project.check_status %>
+  <div>
+  <p>Откликнуться на проект:</p>
+    <%= form_with model: Response.new do |form| %>
+      <div>
+        <%= form.label :Цена %><br>
+        <%= form.text_field :price, :class => "form-control" %>
+      </div>
 
-</ul>
+      <div>
+        <%= form.label :Информация %><br>
+        <%= form.text_area :text, :class => "form-control", cols: 60, rows: 15 %><br>
+      </div>
+      <div>
+        <%= form.hidden_field :project_id, value: @project.id %><br>
+      </div>
+      <div>
+        <%= form.submit "Направить предложение" %>
+      </div>
+    <% end %>
+  </div>
+  <% end %>
+  <hr>
+  <h3>Отклики: </h3>
+  <% if current_user.present? and current_user.role == "customer" and @responses.present? and @project.project_status != "draft" %>
+    <div>
+        <% @responses.each do |response| %>
+            <div class = "project-nav">
+
+              <div> <%= response.text %> </div>
+              <div> Стоимость: <%= response.price %> </div>
+              <div> <h6> <div> <%= response.id %> </div> <%= response.user.email %> </h6></div>
+              <div> <% if response.project.project_status == "choosing_performer" %> </div>
+                  <div> <p> <%= button_to 'Утвердить исполнителя', {:controller => "projects", :action => "select", :project_id => @project.id, :response_id => response.id } , :class => "btn btn-primary my-2", :method=>:post
+
+                  %></p></div>
+                <% end %>
+            </div>
+          <% end %>
+        <% end %>
+  <hr>
+  <ul>
+    <li><%= link_to "Edit", edit_project_path(@project) %></li>
+    <li><%= link_to "New", new_project_path %></li>
+    <li><%= link_to "Main", articles_path %></li>
+  </ul>
+  </div>
+
 </div>
+
+
 

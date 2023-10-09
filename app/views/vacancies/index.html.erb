@@ -2,10 +2,16 @@
 <h1>Вакансии</h1>
 
 <ul> <% @vacancies.each do |vacancy| %>
-  <li> <a href="/vacancies/<%= vacancy.id %>">
+  <li class="project"> <a href="/vacancies/<%= vacancy.id %>">
     <%= link_to vacancy.short_name, vacancy %>
     <div> <%= vacancy.body %> </div> </a>
   </li>
 <% end %>
 </ul>
+
+  <ul>
+    <li><%= link_to "New", new_vacancy_path %></li>
+    <li><%= link_to "Main", articles_path %></li>
+  </ul>
+
 </div>

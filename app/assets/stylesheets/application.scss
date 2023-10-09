@@ -20,16 +20,29 @@
 *= require_self 
 */
 
-
-h1 {  
-   
+h1 {
 }  
 
 .card-project {
-  border: 1px solid teal;
+  border: 1px solid grey;
   display: inline-block;
-
 }
+
+.project  {
+  border: 1px solid #dfdede;
+  display: inline-block;
+  width: 150px;
+  height: 150px;
+  padding: 5px;
+  margin: 10px 10px 10px 0px;
+  overflow: hidden;
+}
+.project:hover {
+  background: #add8e6;
+  color: white;
+  border: 0px solid teal;
+}
+
 
 .about img {
   display: block;

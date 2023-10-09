@@ -1,28 +1,61 @@
-<div class="container">
-  
-<h1>Здесь можно найти проекты и вакансии</h1>
-<h2>Проект находится в разработке </h2>
-  <strong> i am a user - <%= if user_signed_in?
-                               if current_user.role == "customer"
-                                         link_to current_user.email, customer_path
-                                       elsif current_user.role == "executor"
-                                         link_to current_user.email, executor_path
-                                         else
-                                         link_to current_user.email, profiles_path
-                                         end
-                             end
-  %>.</strong>
-     <strong>
-       <%= if user_signed_in?
-             "#{current_user.role} #{current_user.id}"
-        end %>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">CodeSkill</a>
+    </div>
 
-     </strong>
-  <%= button_to(
-        "Log Out",
-        destroy_user_session_path,
-        method: :delete
-      ) %>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"> </a></li>
+        <li>
+          <%= if user_signed_in?
+               "Вы вошли как #{current_user.role} #{current_user.id}"
+                if current_user.role == "customer"
+                  link_to current_user.email, customer_path
+                elsif current_user.role == "executor"
+                  link_to current_user.email, executor_path
+                else
+                  link_to current_user.email, profiles_path
+                end
+              end
+          %></li>
+        <li><% if !(user_signed_in?) %>
+            <%= link_to "Sign Up", new_user_registration_path,
+                  class: 'btn btn-default'
+                %>
+            </li>
+          <li><%= link_to "Sign In", user_session_path,
+                        class: 'btn btn-default'
+            %></li>
+          <% else %>
+            <li><a href="#"><%= button_to(
+                "Log Out",
+                destroy_user_session_path,
+                method: :delete,
+                :class => 'btn btn-default'
+              ) %>
+          <% end %></a></li>
+
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+<div class="container">
+<h1>Здесь можно найти проекты и вакансии</h1>
+<h2>Проект находится в разработке, но можно попробовать создать проект. </h2>
+
 <div>
   <div>
   <a href="/projects"><h2>Проекты</h2></a>
@@ -31,14 +64,13 @@
   <div>
   <% @projects.each do |project| %>
       <% if project.project_status != "draft" %>
-        <div class = "project nav">
+        <div class = "project card">
           <%= link_to project.short_title, project %>
           <div> <%= project.title %> </div>
           <div> <%= project.project_status %> </div>
           <div> <p> <%= project.author %> </p> </div>
-            </div>
+        </div>
       <% end %>
-
   <% end %>
   </div>
 </div>
@@ -49,7 +81,7 @@
   <a href="/vacancies/new" class="btn btn-primary my-2"> Создать </a>
  </div>
   <% @vacancies.each do |vacancy| %>
-    <div>
+    <div class = "project card">
       <a href="/vacancy/<%= vacancy.id %>">
          <%= link_to vacancy.short_name, vacancy %>
          <div> <%= vacancy.body %> </div>
@@ -62,11 +94,11 @@
 <hr>
 <div>
   <div>
-    <a href="notes"><h2>Заметки </h2></a>
+    <a href="/notes"><h2>Заметки </h2></a>
     <a href="notes/new" class="btn btn-primary my-2"> Создать </a>
  </div>
   <% @notes.each do |note| %>
-    <div>
+    <div class = "project card">
       <a href="/notes/<%= note.id %>">
          <%= link_to note.title, note %>
          <div> <%= note.body %> </div>
@@ -74,33 +106,22 @@
     </div>
   <% end %>
 </div>
+  <div>
+    <div>
 <hr>
-
-  <h2>Записи </h2>
-<ul>
+  <a href="/articles"><h2>Записи </h2></a>
+  <a href="articles/new" class="btn btn-primary my-2"> Создать </a>
+    </div>
   <% @articles.each do |article| %>
-    <li>
+    <div class = "project card">
       <a href="/articles/<%= article.id %>">
          <%= link_to article.title, article %>
          <div> <%= article.body %> </div>
       </a>
-    </li>
-  <% end %>
-</ul>
-
-<div class="row row-cols-1 row-cols-md-3 g-4">
- <% @articles.each do |article| %>  
-  <div class="col">
-    <div class="card-project">
-      <img src="..." class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title"> <%= article.title %> </h5>
-        <p class="card-text"> <%= article.body %> This content is a little bit longer.</p>
-      </div>
     </div>
- </div>
- <% end %>
-
+  <% end %>
+    </div>
+</ul>
   <hr>
   <div>
     <div>
@@ -118,6 +139,7 @@
     <% end %>
   </div>
 <hr>
+
 <ul>
   <% @users.each do |user|%>     
     <li>
@@ -126,57 +148,3 @@
   <% end %>
 </ul>
 <hr>
-
-
-
-<div class="collapse" id="navbarToggleExternalContent">
-  <div class="bg-dark p-4">
-    <h5 class="text-white h4">Collapsed content</h5>
-    <span class="text-muted">Toggleable via the navbar brand.</span>
-  </div>
-</div>
-
-<nav class="navbar navbar-dark bg-dark">
-  <div class="container-fluid">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  </div>
-</nav>
-
-
-
-<main>
-  <section class="py-5 text-center container">
-    <div class="row py-lg-5">
-      <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">Album example</h1>
-        <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
-        <p>
-          <a href="#" class="btn btn-primary my-2">Main call to action</a>
-          <a href="#" class="btn btn-secondary my-2">Secondary action</a>
-        </p>
-      </div>
-    </div>
-  </section>
-</main>
-
-</div>
-<form>
-  <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-descr$
-    <div id="emailHelp" class="form-text">We'll never share your email with any$
-  </div>
-  <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1">
-  </div>
-  <div class="mb-3 form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-

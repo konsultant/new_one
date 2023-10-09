@@ -5,6 +5,10 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
+    @user = User.find(params[:id])
+    if Response.where("project_id = ?", @project.id).present?
+      @responses = Response.where("project_id = ?", @project.id)
+    end
   end
   def new
     @project = Project.new
@@ -30,6 +34,7 @@ class ProjectsController < ApplicationController
 
   def destroy
   end
+
   def publish
     @project = Project.find(params[:project_id])
     @project.may_publish?
@@ -39,10 +44,10 @@ class ProjectsController < ApplicationController
     redirect_to customer_path
   end
   def withdraw_from_publication
-
     @project = Project.find(params[:project_id])
-    @project.may_publish?
+    @project.may_withdraw_from_publication?
     @project.withdraw_from_publication
+    Response.where(project_id: params[:project_id]).destroy_all
     @project.save
     #byebug
     redirect_to customer_path
@@ -54,24 +59,45 @@ class ProjectsController < ApplicationController
   @project.get_respond
   @project.save
   #byebug
-  redirect_to customer_path
+  redirect_to executor_path
   end
 
-  def  select
+  def select
     @project = Project.find(params[:project_id])
-    @project.may_get_select?
+    @project.may_select?
+    @project.response_id = params[:response_id]
     @project.select
     @project.save
     #byebug
     redirect_to customer_path
   end
+
+  def complete
+    @project = Project.find(params[:project_id])
+    @project.may_complete?
+    @project.complete
+    @project.save
+    #byebug
+    redirect_to customer_path
+  end
+
   def execute
     @project = Project.find(params[:project_id])
     @project.may_execute?
     @project.execute
+    #@project.response_id =
     @project.save
     #byebug
-    redirect_to customer_path
+    redirect_to executor_path
+  end
+
+  def submit_for_inspection
+    @project = Project.find(params[:project_id])
+    @project.may_submit_for_inspection?
+    @project.submit_for_inspection
+    @project.save
+    #byebug
+    redirect_to executor_path
   end
 
   def update
