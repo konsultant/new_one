@@ -5,7 +5,7 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
-    @user = User.find(params[:id])
+    #@user = User.find(params[:id])
     if Response.where("project_id = ?", @project.id).present?
       @responses = Response.where("project_id = ?", @project.id)
     end

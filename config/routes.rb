@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get "/customer", to: "customer#index"
   get "/executor", to: "executor#index"
 
+  post "/profiles", to: "profiles#index"
 
   resources :articles
 

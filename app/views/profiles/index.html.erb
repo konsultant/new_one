@@ -2,7 +2,28 @@
 <div class="container">
   <h1>Личный кабинет</h1>
   <%= current_user.email %>
-  </ul>
+  <%= if user_signed_in?
+               "Вы вошли как #{current_user.role} #{current_user.id}"
+                if current_user.role == "customer"
+                  link_to current_user.email, customer_path
+                elsif current_user.role == "executor"
+                  link_to current_user.email, executor_path
+                else
+                  link_to current_user.email, profiles_path
+                end
+              end
+          %></li>
+  <br><br>
+  Выберете кем вы хотите быть: <br>
+
+  <%= form_for :user do |f| %>
+  <%= f.radio_button :role, 'customer' %> 
+  <%= f.label :role, 'Заказчик', :value => 'customer' %>
+  <%= f.radio_button :role, 'executor' %>
+  <%= f.label :role, 'Исполнитель', :value => 'executor' %>
+  <%= f.submit %>
+  <% end %>
+
   <h2>Проекты</h2>
   <hr>
   <h2>Вакансии</h2>
@@ -16,7 +37,7 @@
         </a>
       </div>
     <% end %>
-  </div>>
+  </div>
   <hr>
   <h2>Резюме</h2>
   <hr>
@@ -26,4 +47,5 @@
       <%= link_to "Главная", articles_path%>
       <div> <%=  %> </div>
     </li>
+  </ul>
 </div>
