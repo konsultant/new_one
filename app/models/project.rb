@@ -11,7 +11,7 @@ class Project < ApplicationRecord
   scope :complete, -> { where(project_status: %i[ completed]) }
 
   def check_status
-    Statuses_for_not_response.include?(project_status)
+    !Statuses_for_not_response.include?(project_status.to_sym)
   end
 
   def to_s

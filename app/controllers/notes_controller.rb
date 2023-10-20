@@ -10,15 +10,23 @@ class NotesController < ApplicationController
 
   def create
    @note = Note.new(note_params)
-
+   @note.user = current_user
+   #byebug
     if @note.save
-      redirect_to @note
+      redirect_to notes_path
     else
       render :new, status: :unprocessable_entity
     end
   end
 
   def update
+    @note = Note.find(params[:id])
+
+    if @note.update(note_params)
+      redirect_to @note
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def edit

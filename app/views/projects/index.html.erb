@@ -3,12 +3,12 @@
 <h1>Проекты</h1>
 
 <ul> <% @projects.each do |project| %>
+  <%= link_to project do %>
     <div class="project">
-      <li> <a href="/projects/<%= project.id %>">
-      <%= link_to project.short_title, project %>
-      <div> <%= project.title %> </div> </a>
-      </li>
+      <div> <%= project.short_title %> </div>
+      <div> <%= project.title %> </div>
     </div>
+   <% end %>
 <% end %>
 </ul>
 

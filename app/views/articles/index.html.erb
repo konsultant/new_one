@@ -64,12 +64,13 @@
   <div>
   <% @projects.each do |project| %>
       <% if project.project_status != "draft" %>
+      <%= link_to project do %>
         <div class = "project card">
-          <%= link_to project.short_title, project %>
           <div> <%= project.title %> </div>
           <div> <%= project.project_status %> </div>
           <div> <p> <%= project.author %> </p> </div>
         </div>
+      <% end %>
       <% end %>
   <% end %>
   </div>
@@ -81,13 +82,13 @@
   <a href="/vacancies/new" class="btn btn-primary my-2"> Создать </a>
  </div>
   <% @vacancies.each do |vacancy| %>
+   <%= link_to vacancy do %>
     <div class = "project card">
-      <a href="/vacancy/<%= vacancy.id %>">
-         <%= link_to vacancy.short_name, vacancy %>
+         <div> <%= vacancy.short_name %> </div>
          <div> <%= vacancy.body %> </div>
-         <div> <p> <%= vacancy.user.email %> </p> </div>
-      </a>
+         <div> <p> <%= vacancy.user.email %> </p> </div> 
     </div>
+    <% end %>
   <% end %>
 </div>
 
@@ -98,12 +99,12 @@
     <a href="notes/new" class="btn btn-primary my-2"> Создать </a>
  </div>
   <% @notes.each do |note| %>
+   <%= link_to note do %>
     <div class = "project card">
-      <a href="/notes/<%= note.id %>">
-         <%= link_to note.title, note %>
+         <div> <%= note.title %></div>
          <div> <%= note.body %> </div>
-      </a>
     </div>
+    <% end %>
   <% end %>
 </div>
   <div>
@@ -113,12 +114,12 @@
   <a href="articles/new" class="btn btn-primary my-2"> Создать </a>
     </div>
   <% @articles.each do |article| %>
+   <%= link_to article do %>
     <div class = "project card">
-      <a href="/articles/<%= article.id %>">
-         <%= link_to article.title, article %>
+         <div> <%= article.title %> </div>
          <div> <%= article.body %> </div>
-      </a>
     </div>
+      <% end %>
   <% end %>
     </div>
 </ul>

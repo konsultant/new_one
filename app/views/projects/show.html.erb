@@ -13,7 +13,7 @@
 
   <% if current_user.present? and current_user.role == "executor" and @project.check_status %>
   <div>
-  <p>Откликнуться на проект:</p>
+  <h3><p>Откликнуться на проект:</p></h3>
     <%= form_with model: Response.new do |form| %>
       <div>
         <%= form.label :Цена %><br>
@@ -28,7 +28,7 @@
         <%= form.hidden_field :project_id, value: @project.id %><br>
       </div>
       <div>
-        <%= form.submit "Направить предложение" %>
+        <%= form.submit "Направить предложение", :class => "btn btn-primary my-2" %>
       </div>
     <% end %>
   </div>
