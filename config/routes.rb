@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get "/notes", to: "notes#index"
   get "/vacancies", to: "vacancies#index"
   get "/profiles", to: "profiles#index"
+  get "/profiles/show/:id", to: "profiles#show", as: 'profile'
   get "/customer", to: "customer#index"
   get "/executor", to: "executor#index"
 

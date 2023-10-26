@@ -14,14 +14,13 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "notes.css";
 
 /* 
 *= require_tree .
 *= require_self 
 */
 
-h1 {
-}  
 
 .card-project {
   border: 1px solid grey;

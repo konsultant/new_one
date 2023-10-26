@@ -1,5 +1,5 @@
 class NotesController < ApplicationController
-  
+  ActionController::Base.helpers.asset_path("notes.css")
   def show
     @note = Note.find(params[:id])
   end

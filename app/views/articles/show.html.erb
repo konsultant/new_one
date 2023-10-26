@@ -5,9 +5,9 @@
 <p><%= @article.body %></p>
 
 <ul>
-  <li><%= link_to "Edit", edit_article_path(@article) %></li>
-  <li><%= link_to "New", new_article_path %></li>
-  <li><%= link_to "Main", articles_path %></li> 
+  <li><%= link_to "Edit", edit_article_path(@article), class: 'btn btn-default' %></li>
+  <li><%= link_to "New", new_article_path, class: 'btn btn-default' %></li>
+  <li><%= link_to "Main", articles_path, class: 'btn btn-default' %></li> 
   
 </ul>
 </div>
