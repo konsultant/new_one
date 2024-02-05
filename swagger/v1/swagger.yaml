@@ -1,0 +1,37 @@
+---
+openapi: 3.0.1
+info:
+  title: Codeskill V1
+  version: v1
+paths:
+  "/projects":
+    post:
+      summary: Creates a project
+      tags:
+      - Projects
+      parameters: []
+      responses:
+        '201':
+          description: project created
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                short_title:
+                  type: string
+                title:
+                  type: string
+              required:
+              - short_title
+              - title
+servers:
+- url: http://127.0.0.1:3000
+  variables:
+    defaultHost:
+      default: 127.0.0.1:3000

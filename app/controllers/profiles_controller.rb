@@ -11,6 +11,9 @@ class ProfilesController < ApplicationController
   end
   def show
     @user = User.find(params[:id])
+    @projects_count = Project.where(user_id: params[:id]).count
+    @vacancy_count = Vacancy.where(user_id: params[:id]).count
+    @articles_count = Article.where(user_id: params[:id]).count
   end
 
 end

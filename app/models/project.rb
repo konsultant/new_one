@@ -2,11 +2,16 @@ class Project < ApplicationRecord
   include AASM
   belongs_to :user
   has_many :responses
+  has_many :tags
   belongs_to :confirmed_response, class_name: "Response", foreign_key: "response_id", optional: true
   #Перечень статусов при которых не выводится форма отклика
   Statuses_for_not_response = %i[performer_selected performing approval completed archive]
-
+  #Статусы исполнителя: 
+  ## performer_selected - выбран исполнитель, performing - выполняется, approval - на проверке у заказчика 
   scope :executors_statuses, -> { where(project_status: %i[performer_selected performing approval]) }
+  
+  scope :performer_selected, -> { where(project_status: %i[ performer_selected]) }
+
   scope :approval, -> { where(project_status: %i[ approval]) }
   scope :complete, -> { where(project_status: %i[ completed]) }
 

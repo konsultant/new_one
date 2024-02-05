@@ -1,23 +1,23 @@
 <%= form_with model: @vacancy do |form| %>
   <div>
-    <%= form.label :short_name %><br>
-    <%= form.text_field :short_name, cols: 60, rows: 25 %>
+    <%= form.label :short_name, "Наименование вакансии" %><br>
+    <%= form.text_field :short_name, :class => "form-control",  cols: 60, rows: 25 %>
   </div>
 
   <div>
-    <%= form.label :body %><br>
-    <%= form.text_area :body, cols: 60, rows: 15 %><br>
+    <%= form.label :body, "Описание вакансии" %><br>
+    <%= form.text_area :body, :class => "form-control",  cols: 60, rows: 15 %><br>
   </div>
   <%= hidden_field_tag :user_id, @vacancy&.user&.id %>
   <% if user_signed_in? %>
     <% #byebug %>
-  <strong> <%=  %> i am a user - <%= current_user.email %>.</strong>
+  <strong> <%=  %> Текущий пользователь: <%= current_user.email %>.</strong>
   <% end %>
   <% @vacancy.errors.full_messages.each do |message| %>
       <div><%= message %></div>
     <% end %>
   <div>
-    <%= form.submit %>
+    <%= form.submit "Создать", :class => "btn btn-primary my-1" %>
   </div>
 <% end %>
 

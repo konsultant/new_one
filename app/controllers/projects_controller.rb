@@ -1,29 +1,62 @@
 class ProjectsController < ApplicationController
+
+  include ProjectsHelper
+  
+  skip_before_action :verify_authenticity_token
+
   def index
     @projects = Project.all
   end
 
   def show
     @project = Project.find(params[:id])
+
     #@user = User.find(params[:id])
     if Response.where("project_id = ?", @project.id).present?
       @responses = Response.where("project_id = ?", @project.id)
     end
   end
+  
   def new
     @project = Project.new
   end
 
   def create
     #return head 401 unless current_user.nil?
-
+    
     @project = Project.new(project_params)
-    @project.user_id = current_user.id
     #byebug
+    if request.media_type == "application/json" 
+      @project.user_id = params[:user_id]
+    else 
+      @project.user_id = current_user.id
+    end 
+    
     if @project.save
-      redirect_to @project
+      flash[:notice] = 'Project was successfully created.'  
+      respond_to do |format|
+        
+        format.html do 
+          puts "HTML OK"
+          redirect_to @project # show.html.erb
+        end  
+        format.json do 
+          puts "JSON OK"
+          render json: @project.to_json(only: [:id, :short_title, :title]), status: :created 
+        end
+      end
     else
-      render :new, status: :unprocessable_entity
+      respond_to do |format|
+        
+        format.html do 
+          puts "HTML ERROR"
+          render :new, status: :unprocessable_entity
+        end
+        format.json do 
+          puts "JSON ERROR"
+          render json: @project.errors, status: :unprocessable_entity
+        end
+      end
     end
   end
 

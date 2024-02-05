@@ -1,13 +1,13 @@
 <%= form_with model: note do |form| %>
 
   <div>
-    <%= form.label :title %><br>
-    <%= form.text_field :title %>
+    <%= form.label :title, "Краткое описание" %><br>
+    <%= form.text_field :title, :class => "form-control" %>
   </div>
 
   <div>
-    <%= form.label :body %><br>
-    <%= form.text_area :body, cols: 60, rows: 15 %><br>
+    <%= form.label :body, "Описание" %><br>
+    <%= form.text_area :body, :class => "form-control",  cols: 60, rows: 15 %><br>
   </div>
 
   <div>

@@ -1,2 +1,21 @@
-<h1>Tags#index</h1>
-<p>Find me in app/views/tags/index.html.erb</p>
+<div class="container">
+
+<h1>Теги</h1>
+
+<ul> <% @tags.each do |tag| %>
+  <%= link_to tag do %>
+    <div class="project">
+      <div> <%= tag.title %> </div>
+    </div>
+   <% end %>
+<% end %>
+</ul>
+
+  <ul>
+
+    <li><%= link_to "New", new_tag_path, class: 'btn btn-default' %></li>
+    <li><%= link_to "Main", articles_path, class: 'btn btn-default' %></li>
+  </ul>
+
+
+</div>

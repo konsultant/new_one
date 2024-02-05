@@ -1,22 +1,22 @@
 <%= form_with model: article do |form| %>
 
   <div>
-    <%= form.label :title %><br>
-    <%= form.text_field :title, cols: 60, rows: 15 %>
+    <%= form.label :title, "Краткое наименование" %><br>
+    <%= form.text_field :title, :class => "form-control",  cols: 60, rows: 15 %>
     <% article.errors.full_messages_for(:title).each do |message| %>
       <div><%= message %></div>
     <% end %>
   </div>
 
   <div>
-    <%= form.label :body %><br>
-    <%= form.text_area :body, cols: 60, rows: 15 %><br>
+    <%= form.label :body, "Текст статьи" %><br>
+    <%= form.text_area :body, :class => "form-control", cols: 60, rows: 15 %><br>
     <% article.errors.full_messages_for(:body).each do |message| %>
       <div><%= message %></div>
     <% end %>
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.submit "Создать", :class => "btn btn-primary my-1" %>
   </div>
 <% end %>

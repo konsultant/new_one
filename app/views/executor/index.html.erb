@@ -1,10 +1,10 @@
 <div class="container">
   <h1>Личный кабинет исполнителя</h1>
   <%= current_user.email %>
-  </ul>
+  
   <h2>Вы откликнулись на проекты:</h2>
   <div>
-    <% @projects.each do |project|  %>
+    <% @projects_performer_selected.each do |project|  %>
       <div>
         <a href="/project/<%= project.id %>">
           <%= link_to project.short_title, project %>

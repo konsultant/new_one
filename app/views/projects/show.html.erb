@@ -2,14 +2,14 @@
 
 <h2><%= @project.short_title %></h2>
 <p><h3><%= @project.title %></h3></p>
-<p>Бюджет проекта: <%= @project.projects_budget %></p>
+<p>Бюджет проекта: <%= comma_numbers(@project.projects_budget) %></p>
 <p>Время реализации проекта: <%= @project.implementation_period %></p>
 <p>Валюта: <%= @project.currency_budget %></p>
+<p>Статус проекта: <%= @project.project_status %></p>
+<p>Проект разместил: <%= link_to @project&.user&.email, profile_path(@project&.user&.id) %></p>
+<p>Текущая роль: <%= if current_user.present? then current_user.role end %></p> 
 <p>Тэги: <%= @project.tags_tecnologies %></p>
-<p>Проект разместил: <%= @project.author %></p>
-  <p>Статус проекта: <%= @project.project_status %></p>
-  <p>Создатель проекта: <%= link_to @project&.user&.email, profile_path(@project&.user&.id)  %></p>
-  <p>Текущая роль: <%= if current_user.present? then current_user.role end %></p>
+<p>Дата размещения проекта: <%= @project.created_at %></p>
 
   <% if current_user.present? and current_user.role == "executor" and @project.check_status %>
   <div>
@@ -34,7 +34,11 @@
   </div>
   <% end %>
   <hr>
-  <h3>Отклики: </h3>
+  <% if @responses&.count %>
+      <h3>Отклики:</h3> 
+    <% else %>
+      <h3>По данному проекту пока ещё нет откликов </h3>
+   <% end %>
   <% if current_user.present? and current_user.role == "customer" and @responses.present? and @project.project_status != "draft" %>
     <div>
         <% @responses.each do |response| %>

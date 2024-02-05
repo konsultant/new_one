@@ -8,6 +8,8 @@ class User < ApplicationRecord
   has_many :responses
   has_many :notes
   has_many :projects
+  has_many :tags
+  has_many :articles
 
   scope :executors, -> { where(character: :executor) }
 
